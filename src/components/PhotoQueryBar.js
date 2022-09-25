@@ -1,22 +1,31 @@
-import {Provider, useDispatch} from 'react-redux'
-import {createStore} from 'redux'
-import {reducer as queryReducer} from "./redux/queryData";
-function PhotoQueryBar({children}) {
-    const dispatch = useDispatch();
-    const queryStore = createStore(queryReducer);
-    queryStore.subscribe(queryListener);
-    function queryListener() {
-        let query = queryStore.getState();
-        let procdQuery = {};
+import {useDispatch, useSelector} from 'react-redux'
+import {setQuery} from "../redux/photoAlbum";
+import {Fragment, useEffect} from "react";
+import PropTypes from "prop-types";
+function PhotoQueryBar({procFunction, children}) {
+    const dispatch = useDispatch()
+    const query = useSelector(i => {
+        return i.queryReducer
+    })
+    useEffect(() => {
+        let mergedQuery = {};
         query.registered.forEach(i => {
-            if(!query.query[i].disabled) procdQuery[i] = query.query[i].value
+            if(!query.query[i].disabled) mergedQuery[i] = query.query[i].value
         })
-        dispatch(procdQuery)
-    }
+        if(procFunction) {
+            dispatch(setQuery(procFunction(mergedQuery)))
+        } else {
+            dispatch(setQuery(mergedQuery))
+        }
+    }, [dispatch, procFunction, query])
     return (
-        <Provider store={queryStore}>
+        <Fragment>
             {children.constructor === Array ? children : [children]}
-        </Provider>
+        </Fragment>
     )
+}
+PhotoQueryBar.propTypes = {
+    procFunction: PropTypes.func,
+    children: PropTypes.any
 }
 export default PhotoQueryBar

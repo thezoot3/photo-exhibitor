@@ -1,13 +1,17 @@
 import {createStore} from "redux";
-import { reducer as photoReducer } from '../redux/photoAlbum';
+import reducer from '../redux/reducer';
 import {Provider} from "react-redux";
-function PhotoAlbum({fetchData = () => {}, children, autoFetch = true}) {
-    const store = createStore(photoReducer)
-    store.subscribe(state => {})
+import {composeWithDevTools} from "redux-devtools-extension";
+import PropTypes from "prop-types";
+function PhotoAlbum({children}) {
+    const store = createStore(reducer, composeWithDevTools());
     return (
         <Provider store={store}>
             {children.constructor === Array ? children : [children]}
         </Provider>
     )
+}
+PhotoAlbum.propTypes = {
+    children: PropTypes.any
 }
 export default PhotoAlbum
