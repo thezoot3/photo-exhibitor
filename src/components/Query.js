@@ -1,20 +1,21 @@
 import PropTypes from "prop-types";
 import {useDispatch} from "react-redux";
-import {useEffect} from "@types/react";
+import {useEffect} from "react";
 import {registerQuery, unregisterQuery} from "../redux/queryData";
 
-function Query({key, initValue, expectType, children}) {
+function Query({name, initValue, expectType, children = []}) {
     let dispatch = useDispatch();
     useEffect(()=> {
-        dispatch(registerQuery(key, initValue, expectType))
+        dispatch(registerQuery(name, initValue, expectType))
         return () => {
-            dispatch(unregisterQuery(key))
+            dispatch(unregisterQuery(name))
         }
-    }, [expectType, initValue, key])
+    }, [dispatch, expectType, initValue, name])
     return children.constructor === Array ? children : [children]
 }
 Query.propTypes = {
-    key: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    value: PropTypes.any,
     initValue: PropTypes.any,
     expectType: PropTypes.func
 }

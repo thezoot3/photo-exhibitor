@@ -1,24 +1,12 @@
 import {useSelector} from "react-redux";
-import {useEffect, useState} from "react";
-
-function PhotoContainer({sort, children}) {
-    const rawData = useSelector(state => {
-        return state.image
+import React from "react";
+function PhotoContainer({sort, element}) {
+    const l = useSelector(state => {
+        return state.photoReducer.images
+    });
+    if(sort) l.sort(sort);
+    return l.map((data, i) => {
+        return React.cloneElement(element, {photoData: data, key: i});
     })
-    const [list, setList] = useState([])
-    useEffect(() => {
-        let l = Array.from(rawData.keys())
-        if(sort) l.sort(sort);
-        setList(l.map(i => {
-            return (
-                <div>
-                    {children.map(L => {
-                        return <L photoData={rawData[i]}/>
-                    })}
-                </div>
-            )
-        }))
-    }, [children, rawData, sort])
-    return list
 }
 export default PhotoContainer
