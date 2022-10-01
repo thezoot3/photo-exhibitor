@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {setQuery} from "../redux/photoAlbum";
 import {Fragment, useEffect} from "react";
 import PropTypes from "prop-types";
-function PhotoQueryBar({procFunction, children}) {
+function PhotoQueryBar({procFunction, children = []}) {
     const dispatch = useDispatch()
     const query = useSelector(i => {
         return i.queryReducer
