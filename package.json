@@ -1,6 +1,6 @@
 {
   "name": "@thezoot3/photo-exhibitor",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Gallery Framework for React",
   "main": "index.js",
   "scripts": {
