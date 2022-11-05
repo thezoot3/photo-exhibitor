@@ -1,7 +1,19 @@
 import PhotoContainer from "./src/components/PhotoContainer";
-import PhotoQueryBar from "./src/components/PhotoQueryBar";
 import PhotoAlbum from "./src/components/PhotoAlbum";
 import useQueryData from "./src/hooks/useQueryData";
-import Query from "./src/components/Query";
-import PhotoFetcher from "./src/components/PhotoFetcher";
-export {PhotoContainer, PhotoQueryBar, PhotoAlbum, useQueryData, Query, PhotoFetcher};
+import useQueryConstructor from "./src/hooks/useQueryConstructor";
+import { setQuery, setImages } from "./src/redux/photoAlbum";
+import { modifyQuery, unregisterQuery, registerQuery, disableQuery } from "./src/redux/QueryBarData";
+
+export {
+  PhotoContainer,
+  PhotoAlbum,
+  useQueryData,
+  useQueryConstructor,
+  setQuery,
+  modifyQuery,
+  unregisterQuery,
+  registerQuery,
+  disableQuery,
+  setImages,
+};
